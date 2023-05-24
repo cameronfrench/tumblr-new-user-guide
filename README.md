@@ -1,3 +1,3 @@
 # tumblr-new-user-guide
 
-This is a sentence. 
+This is a sentence.
