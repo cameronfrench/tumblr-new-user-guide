@@ -1,94 +1,113 @@
+// 1. Load the IFrame Player API code asynchronously for both videos.
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var players = {}; // Object to store player instances
-var playlistData;
-
+// 2. This function creates an <iframe> (and YouTube player) for the videos.
 function onYouTubeIframeAPIReady() {
-  // Initialize players for each section
-  createPlayer('videos', 'PLeuya145vwVB0Q1v7yveI8RM8hCxq6g1j');
-  
-}
-
-function createPlayer(containerId, playlistId) {
-  players[containerId] = new YT.Player(containerId, {
+  // Create player for the first video
+  var player1 = new YT.Player('player1', {
     height: '390',
     width: '640',
+    videoId: 'J3uxMQkL7XE', // Video ID for the first video
     playerVars: {
-      'playsinline': 1,
-      'listType': 'playlist',
-      'list': playlistId
+      'playsinline': 1
     },
     events: {
-      'onReady': function(event) {
-        playlistData = event.target.getPlaylist(); // Retrieve the playlist data
-        createPlaylistPlayers(containerId);
-      }
+      'onReady': onPlayer1Ready,
+      'onStateChange': onPlayer1StateChange
+    }
+  });
+
+  // Create player for the second video
+  var player2 = new YT.Player('player2', {
+    height: '390',
+    width: '640',
+    videoId: 'K-svwX764-g', // Video ID for the second video
+    playerVars: {
+      'playsinline': 1
+    },
+    events: {
+      'onReady': onPlayer2Ready,
+      'onStateChange': onPlayer2StateChange
     }
   });
 }
 
-function createPlaylistPlayers(containerId) {
-  var playerContainer = document.getElementById(containerId);
-  playerContainer.innerHTML = ''; // Clear the content of the player container
+// 3. The API will call these functions when the video players are ready.
+function onPlayer1Ready(event) {
+  event.target.playVideo();
+}
 
-  // Start the loop from index 0
-  for (var i = 0; i < playlistData.length; i++) {
-    var videoId = playlistData[i];
-    var videoContainer = document.createElement('div');
-    videoContainer.id = 'video-' + videoId;
-    videoContainer.classList.add('video-container');
-    playerContainer.appendChild(videoContainer);
+function onPlayer2Ready(event) {
+  event.target.playVideo();
+}
 
-    new YT.Player(videoContainer.id, {
-      height: '315',
-      width: '560',
-      videoId: videoId,
-      playerVars: {
-        'autoplay': 0,
-        'controls': 1,
-        'rel': 0,
-        'showinfo': 0
-      }
-    });
+// 4. The API calls these functions when the player's state changes.
+//    The functions indicate that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done1 = false;
+function onPlayer1StateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done1) {
+    setTimeout(stopVideo1, 6000);
+    done1 = true;
   }
 }
 
-var apiUrl = 'https://api.tumblr.com/v2/tagged?api_key=uLW3zUKulKflotjG2H7f7DS5I5cWcxNDADH5EuBFLyPvRlD7nk&tag=animals';
+var done2 = false;
+function onPlayer2StateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done2) {
+    setTimeout(stopVideo2, 6000);
+    done2 = true;
+  }
+}
+
+function stopVideo1() {
+  player1.stopVideo();
+}
+
+function stopVideo2() {
+  player2.stopVideo();
+}
+
+
+
+// Tumblr API
+var apiUrl =
+  "https://api.tumblr.com/v2/tagged?api_key=uLW3zUKulKflotjG2H7f7DS5I5cWcxNDADH5EuBFLyPvRlD7nk&tag=animals";
 
 // Fetch request
 fetch(apiUrl)
-  .then(function(response) {
+  .then(function (response) {
     if (response.ok) {
-      response.json().then(function(data) {
+      response.json().then(function (data) {
         console.log(data);
         // Process the retrieved data here
         displayData(data);
       });
     } else {
-      console.log('Request failed with status:', response.status);
+      console.log("Request failed with status:", response.status);
     }
   })
-  .catch(function(error) {
-    console.log('Request failed:', error);
+  .catch(function (error) {
+    console.log("Request failed:", error);
   });
 
 function displayData(data) {
-  var resultElement = document.getElementById('results');
-  
+  var resultElement = document.getElementById("results");
+
   // Clear previous content
-  resultElement.innerHTML = '';
+  resultElement.innerHTML = "";
 
   // Iterate over the data and create HTML elements for each item
-  data.response.forEach(function(item) {
-    if (item.type === 'photo') {
-      var itemElement = document.createElement('div');
-      
+  data.response.forEach(function (item) {
+    if (item.type === "photo") {
+      var itemElement = document.createElement("div");
+
       // Iterate over the photos and create HTML elements for each photo
-      item.photos.forEach(function(photo) {
-        var photoElement = document.createElement('img');
+      item.photos.forEach(function (photo) {
+        var photoElement = document.createElement("img");
         photoElement.src = photo.original_size.url;
         itemElement.appendChild(photoElement);
       });
@@ -97,4 +116,3 @@ function displayData(data) {
     }
   });
 }
-
