@@ -21,6 +21,20 @@ nav {
     background: linear-gradient(90deg, rgba(6,42,114,1) 18%, rgba(224,233,235,1) 100%);
 }
 
+h2 { 
+    font-size: 64px;
+    font-weight: 900;
+}
+
+.desc-box {
+    background-image: url('/assets/images/tumblr-hero-image.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-size: 32px;
+  }
+  
+
 h1 {
     background-color: azure;
     padding: 10px 10px 10px 10px;
