@@ -76,10 +76,6 @@ h3 {
     width:75%;
 }
 
-.tumblr {
-    
-
-}
 
 form { 
     margin-left: 30px;
@@ -113,7 +109,54 @@ button {
     margin-left: 30%;
 }
 
-.results {
-    width: 100%;
-    text-align: center;
+#prev-tags {
+    color: #e1e1e1;
 }
+
+.prev-tag-button {
+    background-color: #ff0000;
+    padding: 10px 20px;
+    color: #ffffff;
+}
+
+
+
+/* Tumblr API Results Styles */
+
+/* Style for the container element */
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  /* Style for each item */
+  .item {
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #e1e1e1;
+  }
+  
+  /* Style for the blog name */
+  .blog-name {
+    font-weight: bolder;
+    font-size: 22px;
+
+  }
+  
+  /* Style for the post URL */
+  .post-url {
+    margin-top: 5px;
+  }
+  
+  /* Style for the photo */
+  .photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 5px;
+  }
+
+  
