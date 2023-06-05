@@ -6,9 +6,9 @@ This Webpage is designed to help new users get an idea of how to use and navigat
 
 ## Usage
 
-[Deployed-site] (https://cameronfrench.github.io/tumblr-new-user-guide/)
+[Deployed-site](https://cameronfrench.github.io/tumblr-new-user-guide/)
 
-[Repository] (https://github.com/cameronfrench/tumblr-new-user-guide)
+[Repository](https://github.com/cameronfrench/tumblr-new-user-guide)
 
 ## Screen 
-![screenshot] (./assets/images/webpage-screenshot.png)
+![screenshot](./assets/images/webpage-screenshot.png)
