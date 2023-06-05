@@ -108,7 +108,7 @@ var formSubmitHandler = function (event) {
   }
 };
 
-// Previously searched city button function - will rerun getTumblrTag based on button event
+// Previously searched tag button function - will rerun getTumblrTag based on button event
 var buttonClickHandler = function (event) {
   var language = event.target.getAttribute("data-language");
 
